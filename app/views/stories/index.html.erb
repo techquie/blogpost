@@ -1,2 +1,25 @@
-hdlafndls nkasdlfk jgk dl
+<h1>Stories</h1>
 
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Authar</th>
+            <th>Read</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @stories.each do |story| %>
+        <tr>
+          <td><%= story.title %></td>
+          <td><%= story.content %></td>
+          <td><%= story.user.name %></td>
+          <td>
+              <%= link_to 'Full Story', story_path(story) %>
+          </td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>

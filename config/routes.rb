@@ -11,6 +11,13 @@ Rails.application.routes.draw do
   # get 'stories#index'
 
   resources :users do
-    collection {post :block_unblock_user}
+    collection { post :block_unblock_user }
   end
+
+  resources :stories, only: [:show]
+
+  post 'comments/submit_comment', to: 'comments#submit_comment', as: :submit_comment
+  post 'comments/approve_comment', to: 'comments#approve_comment', as: :approve_comment
+  get 'comments/pending_approvals', to: 'comments#pending_approvals', as: :pending_approvals
+
 end

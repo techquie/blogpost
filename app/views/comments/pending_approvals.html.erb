@@ -1,0 +1,48 @@
+<h1>Comments Pending for Approval</h1>
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Story</th>
+            <th>Comment</th>
+            <th>Comment by</th>
+            <th>Commented on</th>
+            <th>Comment by</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @comments.each do |comment| %>
+        <tr>
+          <td><%= link_to comment.story.id, story_path(comment.story) %></td>
+          <td><%= comment.content %></td>
+          <td><%= comment.comment_by.name %></td>
+          <td><%= comment.created_at.to_date %></td>
+          <td>
+              <button id="comment_<%= comment.id %>" onclick="approve_comment(<%= comment.id %>)">Approve</button>
+          </td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<!-- To be added into users.js file -->
+<script>
+    function approve_comment(comment_id) {
+        $.ajax({
+            url: '/comments/approve_comment',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                comment_id: comment_id,
+            },
+            success: function(data) {
+               $('#comment_' + comment_id).text('Approved').prop('disabled', true);;
+               alert(data.message);
+            },
+            error: function(data) {
+                alert(data.responseText);
+            }
+        });
+    }
+</script>

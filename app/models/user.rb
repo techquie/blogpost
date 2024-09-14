@@ -11,6 +11,8 @@ class User < ApplicationRecord
   validates :name, length: { maximum: 20, minimum: 5 }
 
   ###### ASSOCIATIONS ######
+  has_one :story, dependent: :destroy
+  has_many :comments_by_user, class_name: 'Comment', foreign_key: 'comment_by'
 
   ###### CALLBACKS ######
 

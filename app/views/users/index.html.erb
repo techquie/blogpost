@@ -1,6 +1,6 @@
 <h1>Users List</h1>
 
-<table>
+<table class="styled-table">
     <thead>
         <tr>
             <th>Id</th>
@@ -15,14 +15,14 @@
     <tbody>
         <% @users.each do |user| %>
         <tr>
-        <td><%= user.id %></td>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.role %></td>
-        <td><%= user.created_at.to_date %></td>
-        <td>
-            <button id="block_unblock_<%= user.id %>" onclick="block_unblock_user(<%= user.id %>)"><%= block_unblock_user_button_text(user) %></button>
-        </td>
+            <td><%= user.id %></td>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role %></td>
+            <td><%= user.created_at.to_date %></td>
+            <td>
+                <button id="block_unblock_<%= user.id %>" onclick="block_unblock_user(<%= user.id %>)"><%= block_unblock_user_button_text(user) %></button>
+            </td>
         </tr>
         <% end %>
     </tbody>
@@ -39,13 +39,11 @@
                 user_id: user_id,
             },
             success: function(data) {
-                debugger
                $('#block_unblock_' + user_id).text(data.active ? 'Block' : 'Unblock');
                alert(data.message);
             },
-            error: function(xhr, status, error) {
-                debugger
-                alert(xhr.responseText);
+            error: function(data) {
+                alert(data.responseText);
             }
         });
     }

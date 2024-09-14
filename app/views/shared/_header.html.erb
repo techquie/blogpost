@@ -6,6 +6,8 @@
 
   <div style='float: left; width: 50%  padding-left: 50px;'>
     <% if user_signed_in? %>
+      <%= link_to 'Stories', root_path %>
+      <%= link_to 'Pending Comments', pending_approvals_path unless current_user.visitor? %>
       <%= link_to 'Users', users_path unless current_user.visitor? %>
       <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
     <% else %>
@@ -13,16 +15,3 @@
     <% end %>
   </div>
 </div>
-
-
-<style>
-.header-background {
-  background: #3399ff;
-  height: 40px;
-  width: 100%;
-  position: fixed;
-  top: 0px;
-  line-height: 40px;
-}
-
-</style>
