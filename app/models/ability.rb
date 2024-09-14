@@ -4,6 +4,9 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    can :read, :index, Story
+    cannot [:new, :create, :destroy], :all
+    user ||= User.new
 
     case user.role
     when 'visitor'
@@ -14,6 +17,9 @@ class Ability
       can :manage, :all
     when 'super_admin'
       can :manage, :all
+    else
+      can :read, :all
+      cannot :index, User
     end
     # Define abilities for the user here. For example:
     #

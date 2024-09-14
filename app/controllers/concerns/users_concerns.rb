@@ -14,6 +14,6 @@ module UsersConcerns
 
   # check user accessibility for users list
   def verify_authorisation
-    redirect_to root_path, notice: "You are not authorized to view this page!" if current_user.visitor?
+    redirect_to root_path, notice: "You are not authorized to view this page!" if current_user&.visitor?
   end
 end
