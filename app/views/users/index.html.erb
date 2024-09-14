@@ -1,0 +1,52 @@
+<h1>Users List</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Onboarded on</th>
+            <th>Block?</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @users.each do |user| %>
+        <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role %></td>
+        <td><%= user.created_at.to_date %></td>
+        <td>
+            <button id="block_unblock_<%= user.id %>" onclick="block_unblock_user(<%= user.id %>)"><%= block_unblock_user_button_text(user) %></button>
+        </td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<!-- To be added into users.js file -->
+<script>
+    function block_unblock_user(user_id) {
+        $.ajax({
+            url: '/users/block_unblock_user',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                user_id: user_id,
+            },
+            success: function(data) {
+                debugger
+               $('#block_unblock_' + user_id).text(data.active ? 'Block' : 'Unblock');
+               alert(data.message);
+            },
+            error: function(xhr, status, error) {
+                debugger
+                alert(xhr.responseText);
+            }
+        });
+    }
+</script>

@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= f.label :role %><br />
-    <%= f.select :role, options_for_select(User.roles.keys.map { |role| [role.humanize.capitalize, role] }, 'visitor') %>
+    <%= f.select :role, options_for_select(User.roles.map { |key, value| [key.humanize.capitalize, key] }, "visitor") %>
   </div>
 
   <div class="actions">

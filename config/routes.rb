@@ -10,4 +10,7 @@ Rails.application.routes.draw do
   root 'stories#index'
   # get 'stories#index'
 
+  resources :users do
+    collection {post :block_unblock_user}
+  end
 end

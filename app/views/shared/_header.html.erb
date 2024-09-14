@@ -1,0 +1,28 @@
+
+<div class="header-background">
+  <div style='float: left; width: 50%; padding-left: 50px;'>
+    Welcome <%= current_user.try(:name) %>
+  </div>
+
+  <div style='float: left; width: 50%  padding-left: 50px;'>
+    <% if user_signed_in? %>
+      <%= link_to 'Users', users_path unless current_user.visitor? %>
+      <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to 'Sign in', new_user_session_path %>
+    <% end %>
+  </div>
+</div>
+
+
+<style>
+.header-background {
+  background: #3399ff;
+  height: 40px;
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  line-height: 40px;
+}
+
+</style>
