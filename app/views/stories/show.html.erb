@@ -1,69 +1,22 @@
-<head>
-    <title><%= @story.title %></title>
-
-    <style>
-        article {
-            width: 100%;
-            background: #fff;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .comments {
-            width: 100%;
-            background: #fff;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .comment-form {
-            margin-top: 20px;
-        }
-        .comment-form input, .comment-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .comment-form button {
-            background: #333;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .comment-form button:hover {
-            background: #555;
-        }
-        .comment {
-            margin-top: 20px;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-    </style>
-</head>
 <body>
     <div class="container">
       <article>
+          <h4><%= @story.title %></h4>
           <p><%= @story.content %></p>
+          <p class="name-font">- by <%= @story.user.name %></p>
       </article>
 
       <div class="comments">
         <div class="comment">
           <% @comments.each do |comment| %>
-            <h5></h4>
-            <p><%= comment.content %> <span style="font-style: italic; font-weight: bold; font-size: 12px;">by <%= comment.comment_by.name %></span></p>
+            <p><%= comment.content %> <span class="name-font">by <%= comment.comment_by.name %></span></p>
           <% end %>
         </div>
 
         <div class="comment-form">
           <h4>Leave a Comment</h4>
-            <textarea name="comment" id="comment" placeholder="Your Comment" required></textarea>
-            <button id="submit_comment_<%= @story.id %>" onclick="submit_comment(<%= @story.id %>)">Submit</button>
+          <textarea name="comment" id="comment" placeholder="Your Comment" required></textarea>
+          <button id="submit_comment_<%= @story.id %>" onclick="submit_comment(<%= @story.id %>)">Submit</button>
         </div>
       </div>
     </div>

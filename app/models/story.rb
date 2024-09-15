@@ -5,7 +5,7 @@ class Story < ApplicationRecord
 
   ###### VALIDATIONS ######
   validates :content, :user_id, presence: true
-  validates :content, length: { maximum: 100, minimum: 20 }
+  validates :content, length: { maximum: 1000, minimum: 20 }
 
   default_scope { where(published: true) }
 
