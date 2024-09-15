@@ -17,7 +17,11 @@ class ApplicationController < ActionController::Base
 
   # raise unauthorization error if user does not have access
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_path, alert: 'You are not authorized to perform this action.'
+    if request.xhr?
+      render json: { message: 'Please signin to continue.' }, status: :forbidden
+    else
+      redirect_to root_path, alert: 'You are not authorized to perform this action.'
+    end
   end
 
 end
