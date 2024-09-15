@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
   end
 
   def submit_comment
-    comment = Comment.create!(build_submit_params)
+    comment = Comment.create(build_submit_params)
     if comment.errors.blank?
       render json: { success: true, message: 'Comment added successfully, wait for comment approval by admin.' }
     else

@@ -9,12 +9,12 @@ module CommentsConcerns
   end
 
   def validate_params
-    @story = Story.find params[:story_id]
+    @story = Story.find_by id: params[:story_id]
     render json: { success: false, message: "Story not found!"}, status: 404 and return if @story.nil?
   end
 
   def set_comment
-    @comment = Comment.find params[:comment_id]
-    render json: { success: true, message: 'Comment not found.' }, status: 404 and return if @comment.nil?
+    @comment = Comment.find_by id: params[:comment_id]
+    render json: { success: false, message: 'Comment not found.' }, status: 404 and return if @comment.nil?
   end
 end

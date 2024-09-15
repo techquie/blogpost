@@ -7,7 +7,7 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @story = Story.find params[:id]
+    @story = Story.find_by id: params[:id]
     @comments = Comment.approved_comments.where(story_id: @story.id).includes(:comment_by)
   end
 end
