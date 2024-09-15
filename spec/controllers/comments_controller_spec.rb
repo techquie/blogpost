@@ -1,5 +1,4 @@
 require 'rails_helper'
-# require_relative '../support/shared_examples'
 
 RSpec.describe CommentsController, type: :controller do
   let!(:admin_user) { create(:user, role: 'admin') }
@@ -93,7 +92,7 @@ RSpec.describe CommentsController, type: :controller do
           expect(json_response['message']).to eq('Comment not found.')
         end
 
-        it 'returns a 422 status' do
+        it 'returns a 404 status' do
           expect(response).to have_http_status(:not_found)
         end
       end
@@ -130,8 +129,8 @@ RSpec.describe CommentsController, type: :controller do
 
       it 'should redirect visitor to root path' do
         json_response = JSON.parse(response.body)
-        expect(json_response['message']).to eq('Please signin to continue.')
-        expect(response.status).to eq(403)
+        expect(json_response['message']).to eq('You are not authorized to perform this action.')
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
@@ -146,7 +145,7 @@ RSpec.describe CommentsController, type: :controller do
         allow(controller).to receive(:current_user).and_return(user)
       end
 
-      context 'when the all passed parameter is valid' do
+      context "when the all passed parameter is valid for user #{role}" do
         it 'should create comment under the story' do
           post :submit_comment, xhr: true, params: params
 
@@ -155,9 +154,17 @@ RSpec.describe CommentsController, type: :controller do
           expect(json_response['message']).to eq('Comment added successfully, wait for comment approval by admin.')
           expect(response).to have_http_status(:ok)
         end
+
+        it 'should create comment under the story' do
+          expect(Comment.count).to eq(2)
+          post :submit_comment, xhr: true, params: params
+
+          json_response = JSON.parse(response.body)
+          expect(Comment.count).to eq(3)
+        end
       end
 
-      context 'when the all passed parameter is invvalid' do
+      context "when the all passed parameter is invalid for user #{role}" do
         it 'should create comment under the story' do
           post :submit_comment, xhr: true, params: params.merge!(comment: '')
 
