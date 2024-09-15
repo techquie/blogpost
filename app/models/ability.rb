@@ -5,7 +5,6 @@ class Ability
 
   def initialize(user)
     can :read, :index, Story
-    cannot [:new, :create, :destroy], :all
     user ||= User.new
 
     case user.role
@@ -13,6 +12,7 @@ class Ability
       cannot :pending_approvals, Comment
       cannot :index, User
       can [:index, :show], Story
+      can [:submit_comment], Comment
     when 'admin'
       can :manage, :all
     when 'super_admin'
@@ -20,6 +20,7 @@ class Ability
     else
       can :read, :all
       cannot :index, User
+      cannot [:pending_approvals, :approve_comment, :submit_comment], Comment
     end
     # Define abilities for the user here. For example:
     #

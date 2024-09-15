@@ -1,4 +1,7 @@
 class StoriesController < ApplicationController
+  load_and_authorize_resource
+
+  ###### controller ACTIONS ######
   def index
     @stories = Story.includes(:user).limit(10)
   end

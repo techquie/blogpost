@@ -1,10 +1,9 @@
 class UsersController < ApplicationController
   include UsersConcerns
-
+  load_and_authorize_resource
   ###### CALLBACKS ######
   before_action :set_user, only: [:block_unblock_user]
   before_action :eligibile_block?, only: [:block_unblock_user]
-  before_action :verify_authorisation
 
   ###### controller ACTIONS ######
   def index
