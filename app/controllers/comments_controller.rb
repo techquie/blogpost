@@ -30,4 +30,13 @@ class CommentsController < ApplicationController
     end
   end
 
+  private
+
+  def submit_comment_params
+    params.permit(:story_id, :comment)
+  end
+
+  def approve_comment_params
+    params.permit(:comment_id)
+  end
 end

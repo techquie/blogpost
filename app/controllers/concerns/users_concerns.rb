@@ -2,7 +2,7 @@ module UsersConcerns
   extend ActiveSupport::Concern
 
   def set_user
-    @user = User.find_by id: params[:user_id]
+    @user = User.find_by id: allowed_block_unblock_params[:user_id]
   end
 
   # verify the eligibility to block/unblock a user

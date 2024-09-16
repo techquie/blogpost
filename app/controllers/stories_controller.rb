@@ -7,7 +7,13 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @story = Story.find_by id: params[:id]
+    @story = Story.find_by id: show_params[:id]
     @comments = Comment.approved_comments.where(story_id: @story.id).includes(:comment_by)
+  end
+
+  private
+
+  def show_params
+    params.permit(:id)
   end
 end

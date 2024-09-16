@@ -21,4 +21,10 @@ class UsersController < ApplicationController
       render json: { success: false, message: 'Error occured while blocking/unblocking user.' }, status: 422
     end
   end
+
+  private
+
+  def allowed_block_unblock_params
+    params.permit(:user_id)
+  end
 end
