@@ -9,9 +9,8 @@
       <div class="comments">
         <div class="comment">
           <p>Comments</p>
-          <% @comments.each do |comment| %>
-            <p><%= comment.content %> <span class="name-font">by <%= comment.comment_by.name %></span></p>
-          <% end %>
+          <%= render @comments %>
+
         </div>
 
         <div class="comment-form">

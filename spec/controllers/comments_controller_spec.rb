@@ -14,7 +14,7 @@ RSpec.describe CommentsController, type: :controller do
         get :pending_approvals
       end
 
-      it 'assigns @comments with super_admin pending approvals' do
+      it 'assigns @comments with admin pending approvals' do
         expect(assigns(:comments).first).to eq(comment1)
       end
 
